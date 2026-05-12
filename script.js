@@ -1,10 +1,12 @@
 // A simple chatbot that responds with some predefined answers
-function chatbot() {
+function chatbot(input) {
     let output = "";
-    input = input.toLoweCase();
-    if (input.includes("hello" || input.icludes("hi"))) {
+    input = input.toLowerCase();
+    if (input.includes("hello") || input.includes("hi")) {
+        console.log('hello j');
+        
         output = "Hello, nice to meet you";
-    } else if (input.icludes("how are you")) {
+    } else if (input.includes("how are you")) {
         output = "I'm doing fine, thank you for asking";
     } else if (input.includes("what is your name")) {
         output = "My name is Jarvis, I'm a Chatbot"
@@ -15,10 +17,66 @@ function chatbot() {
     } else {
         output = "Sorry, I don't understand that. Please try again";
     }
-
+    return output
 }
+
 // Display the user's message
 function displayUserMessage(message) {
-let chat = document.getElementById("chat")
-let userMessage= document.createElement("div")
+    let chat = document.getElementById("chat")
+    let userMessage = document.createElement("div")
+    userMessage.classList.add("message", "user")
+    let userAvatar = document.createElement("div")
+    userAvatar.classList.add("avatar")
+    let userText = document.createElement("div")
+    userText.classList.add("text")
+    userText.innerHTML = message
+    userMessage.appendChild(userAvatar)
+    userMessage.appendChild(userText)
+    chat.appendChild(userMessage)
+    chat.scrollTop = chat.scrollHeight
 }
+
+// Display the bot's message
+function displaybotMessage(message) {
+    let chat = document.getElementById("chat")
+    let botMessage = document.createElement("div")
+    botMessage.classList.add("message", "bot")
+    let botAvatar = document.createElement("div")
+    botAvatar.classList.add("avatar")
+    let botText = document.createElement("div")
+    botText.classList.add("text")
+    botText.innerHTML = message
+    botMessage.appendChild(botAvatar)
+    botMessage.appendChild(botText)
+    chat.appendChild(botMessage)
+    chat.scrollTop = chat.scrollHeight
+}
+
+// send the user message and get the bot's response
+function sendMessage() {
+    let input = document.getElementById("input").value;
+    if (input) {
+        displayUserMessage(input);
+        let output = chatbot(input);
+        setTimeout(function () {
+            displaybotMessage(output);
+        }, 1000);
+        document.getElementById("input").value = "";
+    }
+}
+
+// add a click event listener to the send button
+document.getElementById("button").addEventListener("click", () => {
+    console.log('holamessage')
+        sendMessage();
+
+});
+
+// add a keydown event listener to the input
+document.getElementById("input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        console.log('sendMessage');
+        sendMessage();
+        event.preventDefault();
+    }
+})

@@ -57,13 +57,13 @@ body{
 
 .user .avatar {
     order: 2;
-    background: url('avatar.jpg');
+    background: url('./images/avatar.jpg');
     background-size: cover;
 }
 
 .bot .avatar {
     order: 1;
-    background: url('bot.jpg');
+    background: url('./images/bot.jpg');
     background-size: cover;
 }
 
